@@ -1,0 +1,425 @@
+[
+  {
+    "KorisnickoIme": "Anaa",
+    "Lozinka": "12345",
+    "Ime": "Ana",
+    "Prezime": "Mitrovic",
+    "Pol": 0,
+    "Email": "anaaa@gmail.com",
+    "DatumRodjenja": "2000-12-30T00:00:00",
+    "Treninzi": [],
+    "FitnesCentri": [
+      {
+        "Id": 942760251,
+        "Naziv": "Fitnes centar 2",
+        "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+        "GodinaOtvaranja": 1999,
+        "KorisnickoImeVlasnika": "Anaa",
+        "CenaMesecneClanarine": 1200.0,
+        "CenaGodisnjeClanarine": 12000.0,
+        "CenaJednogTreninga": 500.0,
+        "CenaJednogGrupnogTreninga": 1200.0,
+        "CenaJednogTrSaPersTrenerom": 1500.0,
+        "Obrisan": false
+      }
+    ],
+    "Uloga": 2,
+    "Ulogovan": true,
+    "Blokiran": false
+  },
+  {
+    "KorisnickoIme": "Jovan111",
+    "Lozinka": "1111",
+    "Ime": "Jovan",
+    "Prezime": "Jovanovic",
+    "Pol": 0,
+    "Email": "jovaan@gmail.com",
+    "DatumRodjenja": "1995-12-30T00:00:00",
+    "Treninzi": [],
+    "FitnesCentri": [
+      {
+        "Id": 398413477,
+        "Naziv": "Fitnes centar 3",
+        "AdresaFitnesCentra": "GornjaLjub 66, Ljubovija, 15320",
+        "GodinaOtvaranja": 2015,
+        "KorisnickoImeVlasnika": "Jovan111",
+        "CenaMesecneClanarine": 1000.0,
+        "CenaGodisnjeClanarine": 10000.0,
+        "CenaJednogTreninga": 400.0,
+        "CenaJednogGrupnogTreninga": 500.0,
+        "CenaJednogTrSaPersTrenerom": 1000.0,
+        "Obrisan": false
+      }
+    ],
+    "Uloga": 2,
+    "Ulogovan": false,
+    "Blokiran": false
+  },
+  {
+    "KorisnickoIme": "Aleksa123",
+    "Lozinka": "aleksa",
+    "Ime": "Aleksa",
+    "Prezime": "Aleksic",
+    "Pol": 0,
+    "Email": "aleks@gmail.com",
+    "DatumRodjenja": "1999-12-30T00:00:00",
+    "Treninzi": [],
+    "FitnesCentri": [
+      {
+        "Id": 675488881,
+        "Naziv": "FItnes centar 1",
+        "AdresaFitnesCentra": "Drinska 22, Novi Sad, 23232",
+        "GodinaOtvaranja": 1995,
+        "KorisnickoImeVlasnika": "Anaa",
+        "CenaMesecneClanarine": 1000.0,
+        "CenaGodisnjeClanarine": 12000.0,
+        "CenaJednogTreninga": 400.0,
+        "CenaJednogGrupnogTreninga": 500.0,
+        "CenaJednogTrSaPersTrenerom": 1000.0,
+        "Obrisan": false
+      }
+    ],
+    "Uloga": 1,
+    "Ulogovan": false,
+    "Blokiran": true
+  },
+  {
+    "KorisnickoIme": "Nikolaa",
+    "Lozinka": "1111",
+    "Ime": "Nikola",
+    "Prezime": "Nikolic",
+    "Pol": 0,
+    "Email": "nikola@gmail.com",
+    "DatumRodjenja": "2000-12-30T00:00:00",
+    "Treninzi": [
+    
+      {
+        "Id": 355939447,
+        "Naziv": "Trening 1",
+        "Tip": "fut",
+        "Fitnes": {
+          "Id": 942760251,
+          "Naziv": "Fitnes centar 2",
+          "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+          "GodinaOtvaranja": 1999,
+          "KorisnickoImeVlasnika": "Anaa",
+          "CenaMesecneClanarine": 1200.0,
+          "CenaGodisnjeClanarine": 12000.0,
+          "CenaJednogTreninga": 500.0,
+          "CenaJednogGrupnogTreninga": 1200.0,
+          "CenaJednogTrSaPersTrenerom": 1500.0,
+          "Obrisan": false
+        },
+        "Trajanje": 45,
+        "DatumIVreme": "2022-07-09T22:27:00",
+        "MaxBrPosetilaca": 2,
+        "Posetioci": [
+          "Helena123",
+          "Marija"
+        ],
+        "Obrisan": false
+      },
+      {
+        "Id": 333333,
+        "Naziv": "Trening 9",
+        "Tip": "kardio",
+        "Fitnes": {
+          "Id": 942760251,
+          "Naziv": "Fitnes centar 2",
+          "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+          "GodinaOtvaranja": 1999,
+          "KorisnickoImeVlasnika": "Anaa",
+          "CenaMesecneClanarine": 1200.0,
+          "CenaGodisnjeClanarine": 12000.0,
+          "CenaJednogTreninga": 500.0,
+          "CenaJednogGrupnogTreninga": 1200.0,
+          "CenaJednogTrSaPersTrenerom": 1500.0,
+          "Obrisan": false
+        },
+        "Trajanje": 45,
+        "DatumIVreme": "2022-05-09T22:27:00",
+        "MaxBrPosetilaca": 2,
+        "Posetioci": [],
+        "Obrisan": false
+      }
+    ],
+    "FitnesCentri": [
+      {
+        "Id": 942760251,
+        "Naziv": "Fitnes centar 2",
+        "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+        "GodinaOtvaranja": 1999,
+        "KorisnickoImeVlasnika": "Anaa",
+        "CenaMesecneClanarine": 1200.0,
+        "CenaGodisnjeClanarine": 12000.0,
+        "CenaJednogTreninga": 500.0,
+        "CenaJednogGrupnogTreninga": 1200.0,
+        "CenaJednogTrSaPersTrenerom": 1500.0,
+        "Obrisan": false
+      }
+    ],
+    "Uloga": 1,
+    "Ulogovan": false,
+    "Blokiran": false
+  },
+  {
+    "KorisnickoIme": "Marija12",
+    "Lozinka": "1212",
+    "Ime": "Marija",
+    "Prezime": "Marijanovic",
+    "Pol": 1,
+    "Email": "marijaa@gmail.com",
+    "DatumRodjenja": "2000-10-30T00:00:00",
+    "Treninzi": [],
+    "FitnesCentri": [
+      {
+        "Id": 871638746,
+        "Naziv": "Fitnes centar 4",
+        "AdresaFitnesCentra": "DonjaLjub 66, Ljubovija, 15320",
+        "GodinaOtvaranja": 2010,
+        "KorisnickoImeVlasnika": "Jovan111",
+        "CenaMesecneClanarine": 1000.0,
+        "CenaGodisnjeClanarine": 13000.0,
+        "CenaJednogTreninga": 450.0,
+        "CenaJednogGrupnogTreninga": 500.0,
+        "CenaJednogTrSaPersTrenerom": 1200.0,
+        "Obrisan": false
+      }
+    ],
+    "Uloga": 1,
+    "Ulogovan": false,
+    "Blokiran": false
+  },
+  {
+    "KorisnickoIme": "Jelena2",
+    "Lozinka": "jeca",
+    "Ime": "Jelena",
+    "Prezime": "Jovanovic",
+    "Pol": 1,
+    "Email": "jelena@gmail.com",
+    "DatumRodjenja": "2005-12-12T00:00:00",
+    "Treninzi": [
+      {
+        "Id": 483018793,
+        "Naziv": "Trening 2",
+        "Tip": "neki",
+        "Fitnes": {
+          "Id": 398413477,
+          "Naziv": "Fitnes centar 3",
+          "AdresaFitnesCentra": "GornjaLjub 66, Ljubovija, 15320",
+          "GodinaOtvaranja": 2015,
+          "KorisnickoImeVlasnika": "Jovan111",
+          "CenaMesecneClanarine": 1000.0,
+          "CenaGodisnjeClanarine": 10000.0,
+          "CenaJednogTreninga": 400.0,
+          "CenaJednogGrupnogTreninga": 500.0,
+          "CenaJednogTrSaPersTrenerom": 1000.0,
+          "Obrisan": false
+        },
+        "Trajanje": 44,
+        "DatumIVreme": "2022-07-15T22:44:00",
+        "MaxBrPosetilaca": 10,
+        "Posetioci": [],
+        "Obrisan": false
+      },
+      {
+        "Id": 761820052,
+        "Naziv": "Trening 3",
+        "Tip": "tip2",
+        "Fitnes": {
+          "Id": 398413477,
+          "Naziv": "Fitnes centar 3",
+          "AdresaFitnesCentra": "GornjaLjub 66, Ljubovija, 15320",
+          "GodinaOtvaranja": 2015,
+          "KorisnickoImeVlasnika": "Jovan111",
+          "CenaMesecneClanarine": 1000.0,
+          "CenaGodisnjeClanarine": 10000.0,
+          "CenaJednogTreninga": 400.0,
+          "CenaJednogGrupnogTreninga": 500.0,
+          "CenaJednogTrSaPersTrenerom": 1000.0,
+          "Obrisan": false
+        },
+        "Trajanje": 47,
+        "DatumIVreme": "2022-07-30T22:44:00",
+        "MaxBrPosetilaca": 6,
+        "Posetioci": [],
+        "Obrisan": false
+      }
+    ],
+    "FitnesCentri": [
+      {
+        "Id": 398413477,
+        "Naziv": "Fitnes centar 3",
+        "AdresaFitnesCentra": "GornjaLjub 66, Ljubovija, 15320",
+        "GodinaOtvaranja": 2015,
+        "KorisnickoImeVlasnika": "Jovan111",
+        "CenaMesecneClanarine": 1000.0,
+        "CenaGodisnjeClanarine": 10000.0,
+        "CenaJednogTreninga": 400.0,
+        "CenaJednogGrupnogTreninga": 500.0,
+        "CenaJednogTrSaPersTrenerom": 1000.0,
+        "Obrisan": false
+      }
+    ],
+    "Uloga": 1,
+    "Ulogovan": false,
+    "Blokiran": false
+  },
+  {
+    "KorisnickoIme": "Helena123",
+    "Lozinka": "0022",
+    "Ime": "Helena",
+    "Prezime": "Ivanovic",
+    "Pol": 1,
+    "Email": "helena@gmail.com",
+    "DatumRodjenja": "2000-01-28T00:00:00",
+    "Treninzi": [
+      {
+        "Id": 355939447,
+        "Naziv": "Trening 2",
+        "Tip": "kardio",
+        "Fitnes": {
+          "Id": 942760251,
+          "Naziv": "Fitnes centar 2",
+          "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+          "GodinaOtvaranja": 1999,
+          "KorisnickoImeVlasnika": "Anaa",
+          "CenaMesecneClanarine": 1200.0,
+          "CenaGodisnjeClanarine": 12000.0,
+          "CenaJednogTreninga": 500.0,
+          "CenaJednogGrupnogTreninga": 1200.0,
+          "CenaJednogTrSaPersTrenerom": 1500.0,
+          "Obrisan": false
+        },
+        "Trajanje": 45,
+        "DatumIVreme": "2022-05-09T22:27:00",
+        "MaxBrPosetilaca": 2,
+        "Posetioci": [
+          "Helena123"
+        ],
+        "Obrisan": false
+      }
+    ],
+    "FitnesCentri": [],
+    "Uloga": 0,
+    "Ulogovan": false,
+    "Blokiran": false
+  },
+  {
+    "KorisnickoIme": "Marija",
+    "Lozinka": "Mara",
+    "Ime": "Marija",
+    "Prezime": "Markovic",
+    "Pol": 1,
+    "Email": "mara@gmail.com",
+    "DatumRodjenja": "1997-02-03T00:00:00",
+    "Treninzi": [
+      {
+        "Id": 483018793,
+        "Naziv": "Trening 2",
+        "Tip": "neki",
+        "Fitnes": {
+          "Id": 398413477,
+          "Naziv": "Fitnes centar 3",
+          "AdresaFitnesCentra": "GornjaLjub 66, Ljubovija, 15320",
+          "GodinaOtvaranja": 2015,
+          "KorisnickoImeVlasnika": "Jovan111",
+          "CenaMesecneClanarine": 1000.0,
+          "CenaGodisnjeClanarine": 10000.0,
+          "CenaJednogTreninga": 400.0,
+          "CenaJednogGrupnogTreninga": 500.0,
+          "CenaJednogTrSaPersTrenerom": 1000.0,
+          "Obrisan": false
+        },
+        "Trajanje": 44,
+        "DatumIVreme": "2022-07-15T22:44:00",
+        "MaxBrPosetilaca": 10,
+        "Posetioci": [
+          "Marija"
+        ],
+        "Obrisan": false
+      },
+      {
+        "Id": 761820052,
+        "Naziv": "Trening 3",
+        "Tip": "tip2",
+        "Fitnes": {
+          "Id": 398413477,
+          "Naziv": "Fitnes centar 3",
+          "AdresaFitnesCentra": "GornjaLjub 66, Ljubovija, 15320",
+          "GodinaOtvaranja": 2015,
+          "KorisnickoImeVlasnika": "Jovan111",
+          "CenaMesecneClanarine": 1000.0,
+          "CenaGodisnjeClanarine": 10000.0,
+          "CenaJednogTreninga": 400.0,
+          "CenaJednogGrupnogTreninga": 500.0,
+          "CenaJednogTrSaPersTrenerom": 1000.0,
+          "Obrisan": false
+        },
+        "Trajanje": 47,
+        "DatumIVreme": "2022-07-30T22:44:00",
+        "MaxBrPosetilaca": 6,
+        "Posetioci": [
+          "Marija"
+        ],
+        "Obrisan": false
+      },
+      {
+        "Id": 355939447,
+        "Naziv": "Trening 2",
+        "Tip": "neki",
+        "Fitnes": {
+          "Id": 942760251,
+          "Naziv": "Fitnes centar 2",
+          "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+          "GodinaOtvaranja": 1999,
+          "KorisnickoImeVlasnika": "Anaa",
+          "CenaMesecneClanarine": 1200.0,
+          "CenaGodisnjeClanarine": 12000.0,
+          "CenaJednogTreninga": 500.0,
+          "CenaJednogGrupnogTreninga": 1200.0,
+          "CenaJednogTrSaPersTrenerom": 1500.0,
+          "Obrisan": false
+        },
+        "Trajanje": 45,
+        "DatumIVreme": "2022-04-09T22:27:00",
+        "MaxBrPosetilaca": 2,
+        "Posetioci": [
+          "Helena123",
+          "Marija"
+        ],
+        "Obrisan": false
+      },
+      {
+        "Id": 355939447,
+        "Naziv": "Trening 6",
+        "Tip": "neki1",
+        "Fitnes": {
+          "Id": 942760251,
+          "Naziv": "Fitnes centar 5",
+          "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+          "GodinaOtvaranja": 1999,
+          "KorisnickoImeVlasnika": "Anaa",
+          "CenaMesecneClanarine": 1200.0,
+          "CenaGodisnjeClanarine": 12000.0,
+          "CenaJednogTreninga": 500.0,
+          "CenaJednogGrupnogTreninga": 1200.0,
+          "CenaJednogTrSaPersTrenerom": 1500.0,
+          "Obrisan": false
+        },
+        "Trajanje": 45,
+        "DatumIVreme": "2022-04-10T22:27:00",
+        "MaxBrPosetilaca": 2,
+        "Posetioci": [
+          "Helena123",
+          "Marija"
+        ],
+        "Obrisan": false
+      }
+    ],
+    "FitnesCentri": [],
+    "Uloga": 0,
+    "Ulogovan": false,
+    "Blokiran": false
+  }
+]

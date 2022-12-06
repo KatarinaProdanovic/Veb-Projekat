@@ -1,0 +1,561 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style>
+
+        h1 {
+            color: orangered
+        }
+
+        label {
+            color: red;
+            font-size: medium
+        }
+
+        
+        body {
+            background-color: antiquewhite
+        }
+
+        button {
+            border-radius: 12px;
+            padding: 5px 20px;
+        }
+
+        input.inp {
+            border-bottom-color: red;
+            padding: 5px 15px;
+            border-radius: 12px;
+        }
+ 
+    </style>
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+      
+      $(document).ready(function () {
+
+          fitnes();
+
+
+
+
+
+
+          $.ajax({
+              url: "/api/korisnik/DaLiJeLogovan",
+              type: 'GET',
+              success: function (res) {
+
+                  if (res.Ulogovan === true && res.Uloga == 0) {
+                      grupniT();
+
+                  }
+                  else {
+
+                      grupniTZaOstale()
+
+                  }
+
+
+
+              }
+
+
+          });
+              
+        $(document).on('submit', '.formica', function (e) {
+
+            e.preventDefault();
+            var form = $(this);
+
+            $.ajax({
+                url: "/api/korisnik/DodajKomentar",
+                type: "POST",
+                data: form.serialize(),
+                success: function (response) {
+
+                    alert("Komentar ce biti prosledjen vlasniku na pregled")
+                 
+
+                },
+                error: function (error) {
+                    alert("Ne mozete!!");
+                }
+               
+
+
+
+            });
+
+
+
+      
+
+          });
+
+         
+            
+
+          $(document).on('click', '.btnKomentar', function (e) {
+
+              let formica = '<form class = "formica">';
+
+              formica += '<label for="komentar">Ostavite komentar:</label><br/><input type="textarea" id="komentar" name="komentar" rows="30" cols="100"><br/>';
+              formica += '<label for="ime">Ocena: <input type="radio" id="0" name="ime" value="0" checked >0<input type="radio" id="1" name="ime" value="1">1<input type="radio" id="2" name="ime" value="2">2 <input type="radio" id="3" name="ime" value="3">3 <input type="radio" id="4" name="ime" value="4">4<input type="radio" id="5" name="ime" value="5">5<br/>';
+              formica += '<input type="submit" value="Ok" id="kom" /></form>';
+              $('#komentar').html(formica);
+          });
+
+
+
+          $(document).on('click', '.sviKom', function (e) {
+              let prikaz = "";
+           
+              $.ajax({
+                  url: "/api/korisnik/IspisKomentara",
+                  type: 'GET',
+                  success: function (res) {
+
+                      $.ajax({
+                          url: "/api/korisnik/DaLiJeLogovan",
+                          type: 'GET',
+                          success: function (rezultat) {
+
+                              
+
+                                  $.ajax({
+                                      url: "/api/korisnik/DaLiJeOdbijen",
+                                      type: 'GET',
+                                      success: function (povratna) {
+
+                                          if (rezultat.Ulogovan === true && rezultat.Uloga == 2) {
+                                              for (element in res) {
+
+
+                                                  if (rezultat.KorisnickoIme == res[element].Centar.KorisnickoImeVlasnika) {
+
+                                                      prikaz += '<h2>Komentari: </h1>'
+                                                      prikaz += '<br/><label>Posetilac:</label>' + res[element].Posetilac.Ime + ' ' + res[element].Posetilac.Prezime
+                                                      prikaz += '<br/><label>Komentar:</label>' + res[element].TekstKomentara
+                                                      prikaz += '<br/><label>Ocena:</label>' + res[element].Ocena + '<br/>'
+
+
+                                                      if (res[element].Odobren === false) {
+                                                          prikaz += 'Komentar posetioca' + ' ' + res[element].Posetilac.Ime + ' ' + res[element].Posetilac.Prezime + ' ' + 'je odbijen<br/>';
+                                                      }
+
+                                                      if (povratna === 0 && res[element].Odobren === false) {
+                                                          prikaz += '<td><button class="odobri" name="' + res[element].Id + '">Odobri</button></td>';
+                                                          prikaz += '<td><button class="odbij" name="' + res[element].Id + '">Odbij</button></td><br/>'
+                                                      }
+                                                      if (res[element].Odobren === true) {
+                                                          prikaz += 'Komentar posetioca' + ' ' + res[element].Posetilac.Ime + ' ' + res[element].Posetilac.Prezime + ' ' + 'je odobren<br/>';
+                                                      }
+
+                                                      $('#sviKomentari').html(prikaz);
+                                                  }
+                                              }
+                                          }
+                                          
+                                              else {
+                                                  for (element in res) {
+                                                      var odobren = res[element].Odobren
+                                                      if (odobren == true) {
+                                                          prikaz += '<h2>Komentari: </h1>'
+                                                          prikaz += '<br/><label>Posetilac:</label>' + res[element].Posetilac.Ime + ' ' + res[element].Posetilac.Prezime
+                                                          prikaz += '<br/><label>Komentar:</label>' + res[element].TekstKomentara
+                                                          prikaz += '<br/><label>Ocena:</label>' + res[element].Ocena + '<br/>'
+                                                      }
+                                                  }
+
+                                                  $('#sviKomentari').html(prikaz);
+
+                                              }
+
+
+
+                                      }
+                                  });
+
+                          }
+                      });
+
+                               
+                              }
+
+                        
+                      });
+
+
+
+                  
+
+
+              });
+         
+
+
+
+
+          $(document).on('click', '.odbij', function (e) {
+
+              e.preventDefault();
+              let id = $(this).attr('name');//na koji trening se prijavljuje
+
+
+              $.ajax({
+                  url: "/api/korisnik/OdbijKomentar",
+                  type: "POST",
+                  data: { 'id': id },
+                  success: function (response, status) {
+                      window.location.href = "detalji.html"; 
+                      
+
+                  },
+                  error: function (error) {
+                      alert("Ne mozete se ponovo prijaviti na isti grupni trening ili nema dovoljno mesta!!");
+                  }
+
+              });
+
+          });
+
+
+
+          $(document).on('click', '.odobri', function (e) {
+
+              e.preventDefault();
+              let id = $(this).attr('name');//na koji trening se prijavljuje
+
+
+              $.ajax({
+                  url: "/api/korisnik/OdobriKomentar",
+                  type: "POST",
+                  data: { 'id': id },
+                  success: function (response, status) {
+
+                      window.location.href = "detalji.html";
+
+
+                  },
+                  error: function (error) {
+                      alert("Ne mozete se ponovo prijaviti na isti grupni trening ili nema dovoljno mesta!!");
+                  }
+
+              });
+
+          });
+
+
+
+          $(document).on('click', '.btnPrijava', function (e) {
+
+              e.preventDefault();
+              let id = $(this).attr('name');//na koji trening se prijavljuje
+
+
+              $.ajax({
+                  url: "/api/korisnik/PrijaviSeNaGrupniTrening",
+                  type: "POST",
+                  data: { 'id': id },
+                  success: function (response, status) {
+
+                      window.location.href = "detalji.html";//da mi odmah ucita izmene
+
+                  },
+                  error: function (error) {
+                      alert("Ne mozete se ponovo prijaviti na isti grupni trening ili nema dovoljno mesta!!");
+                  }
+
+              });
+
+          });
+
+
+
+
+          $(document).on('click', '.prikaziRanijeTr', function (e) {
+
+              e.preventDefault();
+
+              $.ajax({
+                  url: "/api/korisnik/GetGrupniTreningRaniji",
+                  type: 'GET',
+                  success: function (data) {
+
+                    
+
+                      let tableOfFitnes = '<table border="1">';
+                      tableOfFitnes += '<tr><th>Naziv</th><th>Tip</th><th>Fitnes centar</th><th>Trajanje</th><th>Datum</th><th>Max broj posetilaca</th><th>BrojPrijavljenih</th></tr>';
+                      for (element in data) {
+
+                          let product = '<td>' + data[element].Naziv + '</td>';
+                          product += '<td class="productClass">' + data[element].Tip
+                          product += '<td class="productClass">' + data[element].Fitnes.Naziv
+                          product += '<td class="productClass">' + data[element].Trajanje
+
+
+                          var datum = data[element].DatumIVreme;
+
+                          var niz = datum.split("T");
+                          var date = niz[0];
+                          var vreme = niz[1];
+                          var nizDatuma = date.split("-");
+                          var godina = nizDatuma[0];
+                          var mesec = nizDatuma[1];
+                          var dan = nizDatuma[2];
+
+                          var vremena = vreme.split(":")
+                          var sati = vremena[0]
+                          var minuti = vremena[1];
+
+
+                          var datumVr = dan + '/' + mesec + '/' + godina + " " + sati + ':' + minuti
+                          product += '<td>' + datumVr + '</td>';
+                          product += '<td class="productClass">' + data[element].MaxBrPosetilaca
+
+                          br = data[element].Posetioci
+                          if (br === null) {
+                              var broj = 0;
+                          }
+                          else {
+                              broj = br.length
+                          }
+
+
+
+                          product += '<td class="productClass">' + broj + '</td>'
+
+
+
+
+                          tableOfFitnes += '<tr>' + product + '</tr>';
+
+                      }
+
+
+                      tableOfFitnes += '</table>';
+                      $('#sviGrupni').html(tableOfFitnes);
+                  }
+
+
+
+
+
+              });
+
+
+          });
+
+          $('#nazad').click(function () {
+              window.location.href = "index.html";
+          });
+
+      });
+
+         
+
+
+          function fitnes(){
+            
+            $.get("/api/korisnik/FitnesCentarDetalji1", function (data, status) {
+
+                let prikaz = '<h1>Informacije o fitnes centru: ' + data.Naziv + '</h1>'
+                prikaz += '<br/><label>Adresa: </label>' + data.AdresaFitnesCentra;
+                prikaz += '<br/><label>Cena mesecne clanarine:</label>' + data.CenaMesecneClanarine
+                prikaz += '<br/><label>Cena godisnje clanarine:</label>' + data.CenaGodisnjeClanarine
+                prikaz += '<br/><label>Cena jednog treninga:</label>' + data.CenaJednogTreninga
+                prikaz += '<br/><label>Cena jednog grupnog treninga:</label>' + data.CenaJednogGrupnogTreninga
+                prikaz += '<br/><label>Cena jednog grupnog treninga sa personalnim trenerom:</label>' + data.CenaJednogTrSaPersTrenerom
+                prikaz += '<br/><label>Korisnicko ime vlasnika:</label>' + data.KorisnickoImeVlasnika
+                $('#content').html(prikaz);
+               
+            });
+        }
+
+
+
+
+        function grupniTZaOstale(){
+
+
+            $.ajax({
+                url: "/api/korisnik/GetGrupniTrening",
+                type: 'GET',
+                success: function (data) {
+
+
+
+                    let tableOfFitnes = '<table border="1">';
+                    tableOfFitnes += '<tr><th>Naziv</th><th>Tip</th><th>Fitnes centar</th><th>Trajanje</th><th>Datum</th><th>Max broj posetilaca</th><th>BrojPrijavljenih</th></tr>';
+                    for (element in data) {
+
+                        let product = '<td>' + data[element].Naziv + '</td>';
+                        product += '<td class="productClass">' + data[element].Tip
+                        product += '<td class="productClass">' + data[element].Fitnes.Naziv
+                        product += '<td class="productClass">' + data[element].Trajanje
+
+
+                        var datum = data[element].DatumIVreme;
+
+                        var niz = datum.split("T");
+                        var date = niz[0];
+                        var vreme = niz[1];
+                        var nizDatuma = date.split("-");
+                        var godina = nizDatuma[0];
+                        var mesec = nizDatuma[1];
+                        var dan = nizDatuma[2];
+
+                        var vremena = vreme.split(":")
+                        var sati = vremena[0]
+                        var minuti = vremena[1];
+
+
+                        var datumVr = dan + '/' + mesec + '/' + godina + " " + sati + ':' + minuti
+                        product += '<td>' + datumVr + '</td>';
+                        product += '<td class="productClass">' + data[element].MaxBrPosetilaca
+
+                        br = data[element].Posetioci
+                        if (br === null) {
+                            var broj = 0;
+                        }
+                        else {
+                            broj = br.length
+                        }
+
+
+
+                        product += '<td class="productClass">' + broj + '</td>'
+
+                      
+
+
+                        tableOfFitnes += '<tr>' + product + '</tr>';
+
+                    }
+
+
+                    tableOfFitnes += '</table>';
+
+
+
+                    tableOfFitnes +='<br/><br/><td><button class="sviKom">Prikazi sve komentare</button></td>';
+
+                    $('#trening').html(tableOfFitnes);
+                }
+
+
+
+
+
+            });
+        }
+
+        function grupniT() {
+          
+            $.ajax({
+                url: "/api/korisnik/GetGrupniTrening",
+                type: 'GET',
+                success: function (data) {
+                   
+                   
+                    
+                        let tableOfFitnes = '<table border="1">';
+                        tableOfFitnes += '<tr><th>Naziv</th><th>Tip</th><th>Fitnes centar</th><th>Trajanje</th><th>Datum</th><th>Max broj posetilaca</th><th>BrojPrijavljenih</th><th> </th></tr>';
+                        for (element in data) {
+
+                            let product = '<td>' + data[element].Naziv + '</td>';
+                            product += '<td class="productClass">' + data[element].Tip
+                            product += '<td class="productClass">' + data[element].Fitnes.Naziv
+                            product += '<td class="productClass">' + data[element].Trajanje
+
+
+                            var datum = data[element].DatumIVreme;
+
+                            var niz = datum.split("T");
+                            var date = niz[0];
+                            var vreme = niz[1];
+                            var nizDatuma = date.split("-");
+                            var godina = nizDatuma[0];
+                            var mesec = nizDatuma[1];
+                            var dan = nizDatuma[2];
+
+                            var vremena = vreme.split(":")
+                            var sati = vremena[0]
+                            var minuti = vremena[1];
+
+
+                            var datumVr = dan + '/' + mesec + '/' + godina + " " + sati + ':' + minuti
+                            product += '<td>' + datumVr + '</td>';
+                            product += '<td class="productClass">' + data[element].MaxBrPosetilaca
+
+                            br = data[element].Posetioci
+                            if (br === null) {
+                                var broj = 0;
+                            }
+                            else {
+                                broj = br.length
+                            }
+
+
+                        
+                            product += '<td class="productClass">' + broj + '</td>'
+
+                            product += '<td><button class="btnPrijava" name="' + data[element].Id + '">Prijavi se</button></td>';
+
+
+                            
+                         
+                            tableOfFitnes += '<tr>' + product + '</tr>';
+                           
+                    }
+
+
+
+                    tableOfFitnes += '</table>';
+
+                    tableOfFitnes += '<br/><br/>';
+                    tableOfFitnes += '<td><button class="btnKomentar">Ostavi Komentar</button></td>';
+
+                    tableOfFitnes += '<br/><br/><td><button class="sviKom">Prikazi sve komentare</button></td>';
+                    $('#trening').html(tableOfFitnes);
+
+
+                    }
+
+
+                   
+               
+
+            });
+
+        }
+
+      
+            
+
+       
+        
+
+
+       
+   </script>
+    </head >
+<body>
+
+    <div id="content"></div>
+    <br />
+    <h2>Grupni treninzi</h2>
+    <div id="trening"></div>
+    <br />
+    <div id="komentar"></div>
+    <br />
+    <div id="sviKomentari"></div>
+
+    <button id="nazad">Vrati se nazad</button>
+    <br />
+</body>
+ </html >

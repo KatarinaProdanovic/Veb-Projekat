@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+
+    <style>
+        body {
+            background-color: antiquewhite
+        }
+
+        button {
+            border-radius: 12px;
+            padding: 5px 20px;
+        }
+
+        input.inp {
+            border-bottom-color: red;
+            padding: 5px 15px;
+            border-radius: 12px;
+        }
+    </style>
+
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#odustani').click(function () {
+                window.location.href = "novifc.html";
+            });
+
+            $('#formaId').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+
+
+                let kIme = $('#kIme').val();
+
+                let lozinka = $('#lozinka').val();
+                let ime = $('#ime').val();
+                let prezime = $('#prezime').val();
+
+                let pol = $('#pol').val();
+                let email = $('#email').val();
+                let datum = $('#datum').val();
+                if (kIme.length == 0 || lozinka.length == 0 || ime.length == 0 || prezime.length == 0 || email.length == 0 || datum.length == 0) {
+                    alert("Niste popunili sva polja!")
+                    return;
+                }
+
+
+                $.ajax({
+                    url: "/api/korisnik/DodajTrenera",
+                    type: "POST",
+                    data: form.serialize(),
+                    success: function (response) {
+                        
+                        alert('Uspesno ste dodali trenera');
+                        window.location.href = "novifc.html";
+
+                    },
+                    error: function (error) {
+                        alert("Ne mozete dodati trenera u vise fitnes centara");
+
+
+                    }
+
+                });
+
+
+
+            });
+
+
+
+            $('#odustani').click(function () {
+
+            });
+
+        });
+
+
+
+
+    </script>
+</head>
+<body>
+    <form id="formaId">
+        <label for="kIme">Korisnicko Ime:</label> <input type="text" id="kIme" name="kIme" /> <br />
+        <label for="lozinka">Lozinka:</label><input type="text" id="lozinka" name="lozinka" /> <br />
+        <label for="ime">Ime:</label> <input type="text" id="ime" name="ime" /><br />
+        <label for=" prezime">Prezime:</label><input type="text" id="prezime" name="prezime" /> <br />
+        <label for=" pol">Pol:</label>
+        <select name="pol" id="pol">
+            <option value="muski">muski</option>
+            <option value="zenski">zenski</option>
+
+        </select><br />
+
+
+        <label for=" email">Email:</label><input type="email" id="email" name="email" /> <br />
+        <label for=" datum">Datum rodjenja:</label><input type="datetime-local" id="datum" name="datum" /> <br />
+
+
+
+
+        <input class ="inp" type="submit" value="Dodaj trenera" id="trazi" />
+    </form>
+
+    
+    <button id="odustani">Nazad</button>
+</body>
+</html>

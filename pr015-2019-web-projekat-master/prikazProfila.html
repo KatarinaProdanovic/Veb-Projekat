@@ -1,0 +1,477 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style>
+
+
+        body {
+            background-color: antiquewhite
+        }
+        button {
+            border-radius: 12px;
+            padding: 5px 20px;
+        }
+    </style>
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            profil();
+            $('#nazad').click(function () {
+                window.location.href = "index.html";
+
+            });
+
+
+
+           
+
+
+         
+
+
+            $(document).on('click', '.sortPoTipuR', function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/api/pretraga/SortiranjeRastuceTip",
+                    type: 'GET',
+                    success: function (data) {
+                        kreirajTrening(data);
+                    }
+                });
+            });
+
+
+            $(document).on('click', '.sortPoTipuO', function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/api/pretraga/SortiranjeOpadajuceTip",
+                    type: 'GET',
+                    success: function (data) {
+                        kreirajTrening(data);
+                    }
+                });
+            });
+
+
+
+            $(document).on('click', '.sortPoDatumuR', function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/api/pretraga/SortiranjeRastuceDatum",
+                    type: 'GET',
+                    success: function (data) {
+                        kreirajTrening(data);
+                    }
+                });
+            });
+
+
+            $(document).on('click', '.sortPoDatumuO', function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/api/pretraga/SortiranjeOpadajuceDatum",
+                    type: 'GET',
+                    success: function (data) {
+                        kreirajTrening(data);
+                    }
+                });
+            });
+
+
+            $(document).on('click', '.sortPoNazR', function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/api/pretraga/SortiranjeRastuceNaziv",
+                    type: 'GET',
+                    success: function (data) {
+                        kreirajTrening(data);
+                    }
+                });
+ });
+
+
+            $(document).on('click', '.sortPoNazO', function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/api/pretraga/SortiranjeOpadajuceNaziv",
+                    type: 'GET',
+                    success: function (data) {
+                        kreirajTrening(data);
+                    }
+                });
+            });
+
+            
+
+
+            $(document).on('click', '.prikaziTreneroveTr', function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/api/trener/GetTreninziTrenera",
+                    type: 'GET',
+                    success: function (data) {
+                        kreirajTrening(data);
+                    }
+
+
+
+
+
+                });
+
+
+            });
+
+
+
+            $(document).on('click', '.prikaziRanijeTr', function (e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/api/korisnik/GetGrupniTreningRaniji",
+                    type: 'GET',
+                    success: function (data) {
+                                  kreirajTrening(data);
+                    }
+
+
+
+
+
+                });
+
+
+            });
+
+
+
+            $(document).on('click', '.pregled', function (e) {
+
+                window.location.href = "raniji.html"
+
+            });
+
+
+
+
+
+
+            $(document).on('click', '.izmena', function (e) {
+
+                e.preventDefault();
+                let id = $(this).attr('name');
+
+
+                $.ajax({
+                    url: "/api/trener/PrikazTreninga",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+                        window.location.href = "izmeniTrening.html";
+
+                    }
+                    
+                });
+
+
+            });
+
+          
+
+            $(document).on('submit', '.forma', function (e) {
+                e.preventDefault();
+                var form = $(this);
+
+                let naziv = $('#naziv').val();
+                console.log(naziv);
+                let tip = $('#tip').val();
+                let nazivFc = $('#nazFc').val();
+
+
+                if (naziv.length == 0 && tip.length == 0 && nazivFc.length == 0) {
+                    alert("Unesite bar jedno polje za pretragu");
+                    return
+                }
+
+
+                $.ajax({
+                    url: "/api/pretraga/PretragaTreninga",
+                    type: "POST",
+                    data: form.serialize(),
+                    success: function (data) {
+                        kreirajTrening(data)
+                    }
+                });
+
+
+            });
+
+
+
+
+            $(document).on('click', '.obrisi', function (e) {
+
+                e.preventDefault();
+                let id = $(this).attr('name');
+
+                $.ajax({
+                    url: "/api/trener/BrisanjeTreninga",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+
+                        alert("Ispesno ste obrisali")
+
+                        window.location.href = "prikazProfila.html";
+
+                    },
+                    error: function (error) {
+                        alert("Ne mozete brisati trening koji se vec odrzao ili ima posetioce ili je vec obrisan");
+                    }
+                });
+
+
+
+
+
+
+            });
+
+            $(document).on('click', '.prikaz1', function (e) {
+
+                e.preventDefault();
+                let id = $(this).attr('name');
+
+                $.ajax({
+                    url: "/api/trener/PrikaziPosetioce",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+                        
+                       
+
+                        window.location.href = "posetioci.html";
+
+                    }
+                });
+
+
+
+
+
+
+            });
+
+
+            $(document).on('click', '.kreiraj', function (e) {
+
+
+
+
+
+                window.location.href = "trening.html";
+
+            });
+              
+
+
+
+
+
+
+          
+
+
+    });
+
+
+
+                    
+        function kreirajTrening(data) {
+            $.ajax({
+                url: "/api/korisnik/DaLiJeLogovan",
+                type: 'GET',
+                success: function (res) {
+                    let tableOfFitnes = '<table border="1">';
+                    tableOfFitnes += '<tr><th>Naziv</th><th>Tip</th><th>Fitnes centar</th><th>Trajanje</th><th>Datum</th><th>Max broj posetilaca</th><th>BrojPrijavljenih</th>';
+                    if (res.Uloga == 1) {
+                        tableOfFitnes += '<th> </th> <th> </th> <th> </th>';
+                    }
+                    tableOfFitnes += '</tr>'
+                    for (element in data) {
+
+                        let product = '<td>' + data[element].Naziv + '</td>';
+                        product += '<td class="productClass">' + data[element].Tip
+                        product += '<td class="productClass">' + data[element].Fitnes.Naziv
+                        product += '<td class="productClass">' + data[element].Trajanje
+
+
+                        var datum = data[element].DatumIVreme;
+
+                        var niz = datum.split("T");
+                        var date = niz[0];
+                        var vreme = niz[1];
+                        var nizDatuma = date.split("-");
+                        var godina = nizDatuma[0];
+                        var mesec = nizDatuma[1];
+                        var dan = nizDatuma[2];
+
+                        var vremena = vreme.split(":")
+                        var sati = vremena[0]
+                        var minuti = vremena[1];
+
+
+                        var datumVr = dan + '/' + mesec + '/' + godina + " " + sati + ':' + minuti
+                        product += '<td>' + datumVr + '</td>';
+                        product += '<td class="productClass">' + data[element].MaxBrPosetilaca
+
+                        br = data[element].Posetioci
+                        if (br === null) {
+                            var broj = 0;
+                        }
+                        else {
+                            broj = br.length
+                        }
+
+
+
+                        product += '<td class="productClass">' + broj + '</td>'
+
+
+                        if (res.Uloga == 1) {
+                            product += '<td><button class="izmena" name="' + data[element].Id + '">Izmeni</button></td>';
+                            product += '<td><button class="obrisi" name="' + data[element].Id + '">Obrisi</button></td>';
+                            product += '<td><button class="prikaz1" name="' + data[element].Id + '">Posetioci</button></td>';
+
+                        }
+
+
+                        tableOfFitnes += '<tr>' + product + '</tr>';
+
+                    }
+
+
+                    tableOfFitnes += '</table>';
+                   
+                    $('#sviGrupni').html(tableOfFitnes);
+                }
+            });
+        }
+
+        function profil() {
+
+            $.get("/api/korisnik/Ulogovani", function (data, status) {
+                let uloga = " ";
+                let pol = " ";
+                if (data.Pol == 0) {
+                    pol = "Muski"
+                }
+                else {
+                    pol = "Zenski"
+                }
+
+
+                if (data.Uloga == 0) {
+                    uloga = "Posetilac";
+                }
+                else if (data.Uloga == 1) {
+                    uloga = "Trener";
+                }
+                else {
+                    uloga = "Vlasnik";
+                }
+
+
+                var date = data.DatumRodjenja;
+
+                var dat = date.split('T')
+                var nizDatuma = dat[0];
+                var niz = nizDatuma.split("-");
+                var godina = niz[0];
+                var mesec = niz[1];
+                var dan = niz[2];
+
+                var rodjenje = dan + '/' + mesec + '/' + godina
+               
+                let prikaz = '<h1>Informacije o korisniku: ' + data.Ime + ' ' + data.Prezime + '</h1>'
+                prikaz += '<br/><label>Korisnicko ime: </label>' + data.KorisnickoIme
+                prikaz += '<br/><label>Lozinka:</label>' + data.Lozinka
+                prikaz += '<br/><label>Pol:</label>' + pol
+                prikaz += '<br/><label>Email:</label>' + data.Email
+                prikaz += '<br/><label>Datum rodjenja:</label>' + rodjenje
+                prikaz += '<br/><label>Uloga:</label>' + uloga
+
+                if (uloga == "Posetilac") {
+                    prikaz += '<br/>'
+                  
+                    prikaz += '<td><button class="prikaziRanijeTr">Prikazi sve treninge</button></td>';
+                    prikaz += '<br/><h2>Pretraga: </h2>'
+                    
+                    prikaz += '<form class="forma">'
+                    prikaz += '<label for="naziv">Naziv:</label> <input type="text" id="naziv" name="naziv" /> <br />'
+                    prikaz +=  '<label for="adresa">Tip treninga:</label><input type="text" id="tip" name="tip" /> <br />'
+                    prikaz +=  '<label for="godina">Naziv fitnes centra:<input type="text" id="nazFc" name="nazFc"/>'
+                    prikaz += '<input type="submit" value="Pretrazi" id="trazi" /></form>';
+
+                    prikaz += '<br/>'
+                    prikaz +='<br/>'
+                    prikaz += '<h2>Sortiranje:</h2>'
+                    prikaz += '<td><button class="sortPoTipuR">Sortiraj po tipu treninga rastuce</button></td><br/>';
+                   
+                    prikaz += '<td><button class="sortPoTipuO">Sortiraj po tipu treninga opadajuce</button></td></br>'
+                    prikaz += '<td><button class="sortPoNazR">Sortiraj po nazivu rastuce</button></td><br/>';
+                    prikaz += '<td><button class="sortPoNazO">Sortiraj po nazivu opadajuce</button></td><br/>';
+                    prikaz += '<td><button class="sortPoDatumuO">Sortiraj po datumu opadajuce</button></td></br>';
+              
+                  ;
+                    prikaz += '<td><button class="sortPoDatumuR">Sortiraj po datumu rastuce</button></td><br/>';
+                 
+                   
+                }
+
+                if (uloga == "Trener") {
+                    prikaz += '<br/>'
+                    prikaz +='<h3>Svi treninzi trenera:</h3>'
+                    prikaz += '<td><button class="prikaziTreneroveTr">Prikazi sve treninge</button></td>';
+                    prikaz += '<br><td><button class="kreiraj">Kreiraj trening</button></td><br/>';
+
+                    //tu ce biti pretrage ispod tabele pa onda tabela sa ranijim tr
+
+                    prikaz += '<td><button class="pregled">Pogledaj ranije treninge</button></td><br/>';
+
+                }
+
+
+                $('#content').html(prikaz);
+
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+    <div id="content"></div>
+    <br />
+    <div id="sviGrupni"></div>
+    <button id="nazad">Nazad</button>
+</body>
+</html>

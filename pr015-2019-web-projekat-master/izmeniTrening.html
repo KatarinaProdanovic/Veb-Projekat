@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+
+
+    <style>
+        body {
+            background-color: antiquewhite
+        }
+
+        button {
+            border-radius: 12px;
+            padding: 5px 20px;
+        }
+
+        input.inp {
+            border-bottom-color: red;
+            padding: 5px 15px;
+            border-radius: 12px;
+        }
+    </style>
+
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            formaa();
+            $('#nazad').click(function () {
+                window.location.href = "prikazProfila.html";
+
+            });
+
+            $(document).on('submit', '.forma', function (e) {
+
+                e.preventDefault();
+                var form = $(this);
+
+                let naziv = $('#naziv').val();
+
+                let tip = $('#tip').val();
+                let trajanje = $('#trajanje').val();
+                let datum = $('#datum').val();
+
+                let maxBr = $('#maxBr').val();
+
+                if (naziv.length == 0 || tip.length == 0 || trajanje.length == 0 || datum.length == 0 || maxBr.length == 0) {
+                    alert("Niste popunili sva polja!");
+                    return;
+                }
+
+
+                $.ajax({
+                    url: "/api/trener/IzmenaTreninga",
+                    type: "PUT",
+                    data: form.serialize(),
+                    success: function (response) {
+
+                        alert('Uspesno ste izmenili');
+                        window.location.href = "prikazProfila.html";
+
+                    },
+                    error: function (error) {
+                        alert("Ne mozete menjati trening koji se vec odrzao");
+                    }
+
+
+                });
+
+
+
+            })
+
+
+
+        });
+
+
+
+
+
+        function formaa() {
+
+
+            $.ajax({
+                url: "/api/trener/TrenutniTrening",
+                type: 'GET',
+                success: function (res) {
+
+
+                    let forma = '<form class = "forma">';
+
+                    forma += '<label for="naziv">Naziv:</label> <input type="text" id="naziv" name="naziv" value = "' + res.Naziv + '" /> <br />'
+                    forma += '<label for="adresa">Tip:</label><input type="text" id="tip" name="tip" value = "' + res.Tip + '" /> <br />'
+                    forma += '<label for="trajanje">Trajanje:</label> <input type="number" id="trajanje" name="trajanje" value = "' + res.Trajanje + '" /><br />'
+
+
+
+                    var datum = res.DatumIVreme;
+
+                    var niz = datum.split("T");
+                    var date = niz[0];
+                    var vreme = niz[1];
+                    var nizDatuma = date.split("-");
+                    var godina = nizDatuma[0];
+                    var mesec = nizDatuma[1];
+                    var dan = nizDatuma[2];
+
+                    var vremena = vreme.split(":")
+                    var sati = vremena[0]
+                    var minuti = vremena[1];
+
+
+                    var datumVr = dan + '/' + mesec + '/' + godina + " " + sati + ':' + minuti
+                    forma += '<label for="datum">Datum i vreme:</label> <input type="text" id="datum" name="datum" value = "' + datumVr + '" /><br />'
+
+                    forma += '<label for="maxBr">Naziv:</label> <input type="number" id="maxBr" name="maxBr" value = "' + res.MaxBrPosetilaca + '" /> <br />'
+                    forma += '<input type="submit" style= "  border-radius: 12px;" value="Izmeni fitnes centar" id="trazi" /></form >'
+                    $('#content').html(forma);
+
+                }
+
+
+
+
+            });
+
+
+        }
+
+    </script>
+</head>
+<body>
+    <div id="content"></div>
+    <br />
+    <button id="nazad">Nazad</button>
+</body>
+</html>

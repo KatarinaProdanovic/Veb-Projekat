@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+     
+      h3{
+          color:red;
+         
+              
+      }
+        
+        button.dugme {
+            padding: 5px 5px;
+        }
+
+        button {
+            border-style: solid;
+            border-radius: 12px;
+           
+        }
+      .dugmici{
+          text-align:right;
+         
+      }
+      body {
+          background-color:aquamarine
+      }
+      .okvir{
+          text-align:center
+      }
+      .drugi{
+          width: 50%;
+           margin: 0 auto;
+          text-align: center;
+        
+
+      }
+      .sort{
+         color:red;
+          width:20%
+      }
+        .naslov {
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            color:red
+            
+        }
+      
+    </style>
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+            rastucePoImenu();
+           
+            daLijeUlogovan();
+            dodajFitnes();
+            $('#sortOpPoNaz').click(opadajucePoImenu);
+            $('#sortRasPoNaz').click(rastucePoImenu);
+           
+            $('#sortOpPoGodini').click(opadajucePoGodini);
+            $('#sortRasPoGodini').click(rastucePoGodini);
+
+
+            $('#sortOpPoAdresi').click(opadajucePoAdresi);
+            $('#sortRasPoAdresi').click(rastucePoAdresi);
+
+            $(document).on('click', '.registrujSe', function (e) {
+
+                window.location.href = "registracija.html";
+
+            });
+
+           
+            $(document).on('click', '.prijaviSe', function (e) {
+               
+                window.location.href = "prijava.html";
+
+            });
+
+
+
+
+
+            $(document).on('click', '.fitnesVlasnika', function (e) {
+
+                window.location.href = "novifc.html";
+
+            });
+
+
+
+            $(document).on('click', '.btnDetalji', function (e) {
+                e.preventDefault();
+                let id = $(this).attr('name');
+               
+
+                $.ajax({
+                    url: "/api/korisnik/FitnesCentarDetalji",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+                         window.location.href = "detalji.html";
+
+                    }
+                });
+            });
+            $(document).on('click', '.odjaviSe', function (e) {
+
+                e.preventDefault();
+                let id = $(this).attr('name');
+
+
+                $.ajax({
+                    url: "/api/korisnik/Odjava",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+                       
+                        window.location.href = "index.html";
+
+                    }
+                });
+
+            });
+
+            $(document).on('click', '.izmenaProfila', function (e) {
+
+                e.preventDefault();
+                let id = $(this).attr('name');
+
+
+                $.ajax({
+                    url: "/api/korisnik/PrikazProfilaKorisnika",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+                        window.location.href = "izmenaProfila.html";
+
+                    }
+                });
+              
+                
+            });
+
+
+
+            $(document).on('click', '.prikazProfila', function (e) {
+                e.preventDefault();
+                let id = $(this).attr('name');
+
+
+                $.ajax({
+                    url: "/api/korisnik/PrikazProfilaKorisnika",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+                        window.location.href = "prikazProfila.html";
+
+                    }
+                });
+            });
+
+
+            $('#forma').submit(function (e) {
+                e.preventDefault();
+                let naziv = $('#naziv').val();
+              
+                let adresa = $('#adresa').val();
+                let godina = $('#godinaMin').val();
+                let godina1 = $('#godinaMax').val();
+
+                if (naziv.length == 0 && adresa.length == 0 && godina.length == 0 && godina1.length == 0) {
+                    alert("Unesite bar jedno polje za pretragu");
+                    return
+                }
+               
+
+                var form = $(this);
+
+                $.ajax({
+                    url: "/api/korisnik/PretragaCentra",
+                    type: "POST",
+                    data: form.serialize(),
+                    success: function (response) {
+                        kreirajTabelu(response)
+
+                    }
+                
+
+
+                });
+
+
+
+            });
+
+        });
+
+
+     
+        function daLijeUlogovan() {
+            $.ajax({
+                url: "/api/korisnik/DaLiJeLogovan",
+                type: 'GET',
+                success: function (res) {
+                  
+                    let dugme = "";
+                    let malo = "";
+
+                    if (res.Ulogovan === true) {
+                        dugme = '<td><button class="prikazProfila" name="' + res.KorisnickoIme + '">Profil</button></td>';
+                        dugme += '<td><button class="izmenaProfila" name="' + res.KorisnickoIme + '">Izmeni profil</button></td>'
+                        dugme += '<td><button class="odjaviSe" name="' + res.KorisnickoIme + '">Odjavi se</button></td>';
+                        $('#prijavaa').html(dugme);
+                    }
+
+                    else {
+
+
+                        malo = '<button class="registrujSe" style="border-radius: 12px">Registruj se</button>' + '<button class="prijaviSe" style="border-radius: 12px">Prijavi se</button>'
+                        $('#prijavaa').html(malo);
+
+                    }
+                }
+                    
+                    
+                  
+                              
+                
+                
+
+                 
+            });
+        }
+
+        function dodajFitnes() {
+
+
+            $.ajax({
+                url: "/api/korisnik/DaLiJeLogovan",
+                type: 'GET',
+                success: function (res) {
+
+                    if (res.Ulogovan === true && res.Uloga == 2) {
+                        var product = '<td><button class="fitnesVlasnika">Fitnes centri</button></td>';
+                        $('#dodavanjeCentra').html(product);
+                    }
+
+
+                }
+
+
+            });
+
+
+        }
+       
+
+
+        function kreirajTabelu(data) {
+            let tableOfFitnes = '<table border="1" style="width:100%;  border-style: solid; color:black;border-color:red; column-width:auto">';
+            tableOfFitnes += '<tr><th>Naziv</th><th>Adresa</th><th>Godina otvaranja</th><th> </th></tr>';
+            for (element in data) {
+
+                let product = '<td>' + data[element].Naziv + '</td>';
+                product += '<td class="productClass">' + data[element].AdresaFitnesCentra + '</td>';
+                product += '<td>' + data[element].GodinaOtvaranja + '</td>';
+              
+                product += '<td><button class="btnDetalji" style="border-radius: 12px" name="' + data[element].Id + '">Detalji</button></td>';
+                tableOfFitnes += '<tr>' + product + '</tr>';
+            }
+            tableOfFitnes += '</table>';
+            $('#content').html(tableOfFitnes);
+            console.log('products loaded');
+        }
+       
+         
+      function rastucePoImenu() {
+            console.log('loading fitnesCenter...');
+          $.get("/api/korisnik/GetKorisnikPoNazivuRastuce", function (data, status) {
+              kreirajTabelu(data);
+            });
+        }
+
+        function opadajucePoImenu() {
+            console.log('loading fitnesCenter...');
+            $.get("/api/korisnik/GetKorisnikPoNazivuOpadajuce", function (data, status) {
+                kreirajTabelu(data);
+            });
+
+
+        }
+
+
+        function opadajucePoGodini() {
+            console.log('loading fitnesCenter...');
+            $.get("/api/korisnik/GetKorisnikPoGodiniOpadajuce", function (data, status) {
+                kreirajTabelu(data);
+            });
+
+
+        }
+        function rastucePoGodini() {
+            console.log('loading fitnesCenter...');
+            $.get("/api/korisnik/GetKorisnikPoGodiniRastuce", function (data, status) {
+                kreirajTabelu(data);
+            });
+
+
+        }
+
+        function rastucePoAdresi() {
+            console.log('loading fitnesCenter...');
+            $.get("/api/korisnik/GetKorisnikPoAdresiRastuce", function (data, status) {
+                kreirajTabelu(data);
+            });
+
+
+        }
+
+        function opadajucePoAdresi() {
+            console.log('loading fitnesCenter...');
+            $.get("/api/korisnik/GetKorisnikPoAdresiOpadajuce", function (data, status) {
+                kreirajTabelu(data)
+            });
+
+
+        }
+
+       
+
+</script>
+
+</head >
+<body>
+   
+    <div class="naslov">
+        <h1>Fitnes centri</h1>
+
+    </div>
+
+    <div class="dugmici">
+        <div id="prijavaa"></div>
+    </div>
+        <br /><br />
+
+        <div class="okvir">
+        <div id="content" class="drugi"></div>
+    </div>
+
+
+        <div class="sort">
+            <h3>Sortiranje</h3>
+
+            <button id="sortOpPoNaz" class="dugme">Sortiraj opadajuce po nazivu</button>
+            
+            <br />
+            <button id="sortOpPoGodini" class="dugme">Sortiraj opadajuce po godini</button>
+            <br />
+            <button id="sortOpPoAdresi" class="dugme">Sortiraj opadajuce po adresi</button>
+            <br />
+            <button id="sortRasPoNaz" class="dugme">Sortiraj rastuce po nazivu</button>
+            <br />
+            <button id="sortRasPoGodini" class="dugme">Sortiraj rastuce po godini</button>
+            <br />
+            <button id="sortRasPoAdresi" class="dugme">Sortiraj rastuce po adresi</button>
+
+
+
+        </div>
+        <br />
+
+        <h3>Pretraga:</h3>
+        <br />
+
+        <form id="forma">
+            <label for="naziv">Naziv:</label> <input type="text" id="naziv" name="naziv" /> <br />
+            <label for="adresa">Adresa:</label><input type="text" id="adresa" name="adresa" /> <br />
+            <label for="godina">Godina: od</label> <input type="number" id="godinaMin" name="godinaMin" />do<input type="number" id="godinaMax" name="godinaMax" /> <br />
+            <input type="submit" value="Pretrazi" id="trazi" />
+        </form>
+
+        <br />
+        <div id="dodavanjeCentra"></div>
+    
+</body>
+</html >

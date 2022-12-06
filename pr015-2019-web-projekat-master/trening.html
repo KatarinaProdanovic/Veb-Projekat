@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+
+    <style>
+        body {
+            background-color: antiquewhite
+        }
+
+        button {
+            border-radius: 12px;
+            padding: 5px 20px;
+        }
+
+        input.inp {
+            border-bottom-color: red;
+            padding: 5px 15px;
+            border-radius: 12px;
+        }
+    </style>
+
+
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#odustani').click(function () {
+                window.location.href = "prikazProfila.html";
+            });
+
+
+            $('#formaId').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+
+
+
+                let naziv = $('#naziv').val();
+
+                let tip = $('#tip').val();
+                let trajanje = $('#trajanje').val();
+                let datum = $('#datum').val();
+
+                let maxBr = $('#maxBr').val();
+
+                if (naziv.length == 0 || tip.length == 0 || trajanje.length == 0 || datum.length == 0 || maxBr.length == 0) {
+                    alert("Niste popunili sva polja!");
+                    return;
+                }
+
+                $.ajax({
+                    url: "/api/trener/DodavanjeTreninga",
+                    type: "POST",
+                    data: form.serialize(),
+                    success: function (response) {
+                        console.log(response);
+                        alert('Uspesno ste dodali trening');
+                        window.location.href = "prikazProfila.html";
+
+                    },
+                    error: function (error) {
+                        alert("Trening se kreira 3 dana unapred! Pokusaj ponovo");
+                    }
+
+
+
+
+                });
+
+
+
+            });
+        });
+
+
+
+
+    </script>
+</head>
+<body>
+    <form id="formaId">
+        <label for="naziv">Naziv:</label> <input type="text" id="naziv" name="naziv" /> <br />
+        <label for="tip">Tip:</label><input type="text" id="tip" name="tip" /> <br />
+        <label for="trajanje">Trajanje:</label> <input type="number" id="trajanje" name="trajanje" /><br />
+        <label for=" datum">Datum i vreme:</label><input type="datetime-local" id="datum" name="datum" /> <br />
+       
+
+        <label for=" maxBr">Max br posetilaca:</label><input type="number" id="maxBr" name="maxBr" /> <br />
+       
+
+        <input class="inp" type="submit" value="Dodaj trening" id="trazi" />
+    </form>
+    <br />
+    <button id="odustani">Nazad</button>
+</body>
+</html>

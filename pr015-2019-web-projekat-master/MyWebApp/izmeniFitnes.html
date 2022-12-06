@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+
+    <style>
+        body {
+            background-color: antiquewhite
+        }
+
+        button {
+            border-radius: 12px;
+            padding: 5px 20px;
+        }
+
+        input.inp {
+            border-bottom-color: red;
+            padding: 5px 15px;
+            border-radius: 12px;
+        }
+    </style>
+
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            formaa();
+
+
+
+            $(document).on('submit', '.forma', function (e) {
+
+                e.preventDefault();
+                var form = $(this);
+
+                let naziv = $('#naziv').val();
+
+                let adresa = $('#adresa').val();
+                let godina = $('#godina').val();
+                let cenaMes = $('#cenaMes').val();
+
+                let cenaGod = $('#cenaGod').val();
+                let cenaJednog = $('#cenaJednog').val();
+                let cenaJedGr = $('#cenaJedGr').val();
+                let cenaJedGrSaTr = $('#cenaJedGrSaTr').val();
+
+
+                if (naziv.length == 0 || adresa.length == 0 || cenaMes.length == 0 || godina.length == 0 || cenaJednog.length == 0 || cenaGod.length == 0 || cenaJedGr.length == 0 || cenaJedGrSaTr.length == 0 || cenaMes == null || godina == null || cenaJednog == null || cenaGod == null || cenaJedGr == null || cenaJedGrSaTr == null) {
+                    alert("Niste popunili sva polja!");
+                    return
+                }
+
+
+                $.ajax({
+                    url: "/api/korisnik/IzmenaFitnesCentra",
+                    type: "PUT",
+                    data: form.serialize(),
+                    success: function (response) {
+
+                        alert('Uspesno ste izmenili');
+                        window.location.href = "novifc.html";
+
+                    }
+
+
+
+                });
+
+
+
+            })
+
+        });
+
+
+
+
+        function formaa() {
+
+
+            $.ajax({
+                url: "/api/korisnik/TrenutniFc",
+                type: 'GET',
+                success: function (res) {
+
+
+                    let forma = '<form class = "forma">';
+
+                    forma += '<label for="naziv">Naziv:</label> <input type="text" id="naziv" name="naziv" value = "' + res.Naziv + '" /> <br />'
+                    forma += '<label for="adresa">Adresa:</label><input type="text" id="adresa" name="adresa" placeholder="ulica broj, mesto/grad, postanskiBroj" value = "' + res.AdresaFitnesCentra + '" /> <br />'
+                    forma += '<label for="godina">Godina otvaranja:</label> <input type="text" id="godina" name="godina" value = "' + res.GodinaOtvaranja + '" /><br />'
+                    forma += '<label for="cenaMesClanarine">Cena mesecne clanarine:</label><input type="text" id="cenaMes" name="cenaMes" value = ' + res.CenaMesecneClanarine + ' /> <br />'
+                    forma += '<label for="cenaGodClanarina">Cena godisnje clanarine:</label><input type="text" id="cenaGod" name="cenaGod" value = ' + res.CenaGodisnjeClanarine + ' /> <br />'
+                    forma += '<label for="cenaJedTr">Cena jednog treninga:</label><input type="text" id="cenaJednog" name="cenaJednog" value = ' + res.CenaJednogTreninga + ' /> <br />'
+                    forma += '<label for="cenaJedGr">Cena jednog grupnog treninga:</label><input type="text" id="cenaJedGr" name="cenaJedGr" value = ' + res.CenaJednogGrupnogTreninga + ' /> <br />'
+                    forma += '<label for="cenaJedGrSaTr">Cena jednog grupnog treninga sa personalnim trenerom:</label><input type="text" id="cenaJedGrSaTr" name="cenaJedGrSaTr" value = ' + res.CenaJednogTrSaPersTrenerom + ' /> <br />'
+
+
+
+
+                    forma += '<input type="submit" style = "  border-radius: 12px; "value="Izmeni fitnes centar" id="trazi" /></form >'
+                    $('#content').html(forma);
+
+                }
+
+
+
+
+            });
+
+
+        }
+    </script>
+
+</head>
+<body>
+    <div id="content"></div>
+</body>
+</html>

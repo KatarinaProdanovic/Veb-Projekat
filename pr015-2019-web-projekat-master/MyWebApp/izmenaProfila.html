@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+
+
+    <style>
+            body {
+                background-color: antiquewhite
+            }
+
+            button {
+                border-radius: 12px;
+                padding: 5px 20px;
+            }
+
+        input.inp {
+            border-bottom-color: red;
+            padding: 5px 15px;
+            border-radius: 12px;
+        }
+
+            </style>
+
+            <script src="Scripts/jquery-3.3.1.js" > </script >
+            <script type="text/javascript" >
+            $(document).ready(function () {
+
+            formaZad();
+
+
+
+                $('#nazad').click(function () {
+                    window.location.href = "index.html";
+                });
+
+
+            $(document).on('submit', '.formica', function (e) {
+
+                e.preventDefault();
+                var form = $(this);
+
+
+                let kIme = $('#kIme').val();
+
+                let lozinka = $('#lozinka').val();
+                let ime = $('#ime').val();
+                let prezime = $('#prezime').val();
+
+                let pol = $('#pol').val();
+                let email = $('#email').val();
+                let datum = $('#datum').val();
+                if (kIme.length == 0 || lozinka.length == 0 || ime.length == 0 || prezime.length == 0 || email.length == 0 || datum.length == 0) {
+                    alert("Niste popunili sva polja!")
+                    return;
+                }
+                $.ajax({
+                    url: "/api/korisnik/Izmena",
+                    type: "PUT",
+                    data: form.serialize(),
+                    success: function (response) {
+
+                        alert('Uspesno ste izmenili');
+                        window.location.href = "index.html";
+
+                    }
+
+
+
+                });
+
+
+
+            });
+
+
+        });
+
+
+
+
+
+            function formaZad() {
+                $.ajax({
+                    url: "/api/korisnik/Ulogovani",
+                    type: 'GET',
+                    success: function (res) {
+                        let formica = '<form class = "formica">';
+
+                        formica += '<label for="kIme">Korisnicko Ime:</label> <input type="text" id="kIme" name="kIme" value = ' + res.KorisnickoIme + ' /> <br />';
+                        formica += '<label for="lozinka">Lozinka:</label><input type="text" id="lozinka" name="lozinka"  value = ' + res.Lozinka + ' /> <br />';
+                        formica += '<label for="ime">Ime:</label> <input type="text" id="ime" name="ime" value = ' + res.Ime + ' /><br />';
+                        formica += '<label for=" prezime">Prezime:</label><input type="text" id="prezime" name="prezime" value = ' + res.Prezime + ' /> <br />'
+                        formica += '<label for=" pol">Pol:</label>';
+                        formica += '<select name="pol" id="pol" value = ' + res.Pol + '>'
+                        formica += '<option value="muski">muski</option>';
+                        formica += '<option value="zenski">zenski</option></select><br />';
+
+
+                        formica += '<label for=" email">Email:</label><input type="email" id="email" name="email" value = ' + res.Email + ' /> <br />';
+
+
+
+                        var datum = res.DatumRodjenja;
+                        var niz = datum.split("T");
+                        var date = niz[0];
+                        var nizDatuma = date.split("-");
+                        var godina = nizDatuma[0];
+                        var mesec = nizDatuma[1];
+                        var dan = nizDatuma[2];
+
+                        var rodjenje = dan + '/' + mesec + '/' + godina
+                        formica += '<label for=" datum">Datum rodjenja:</label><input type="datetime" id="datum" name="datum" value = ' + rodjenje + ' /> <br />'
+                        formica += '<input style ="border-radius: 12px; "type="submit" value="Izmeni profil" id="trazi" /></form>';
+                        $('#content').html(formica);
+                    }
+
+
+
+
+                });
+            }
+
+            </script >
+
+
+
+
+
+            </head >
+<body>
+    <div id="content"> </div>
+    <br/>
+    <button id="nazad">Nazad</button>
+</body>
+            </html >

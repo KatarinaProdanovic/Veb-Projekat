@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            background-color: antiquewhite
+        }
+
+        button {
+            border-radius: 12px;
+            padding: 5px 20px;
+        }
+
+       
+    </style>
+
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $('#odustani').click(function () {
+                window.location.href = "prikazProfila.html";
+            });
+
+
+
+            $.ajax({
+                url: "/api/trener/VratiKorisnike",
+                type: 'GET',
+                success: function (data) {
+                    for (element in data) {
+                      
+                        let uloga = " ";
+                        let pol = " ";
+                        if (data[element].Pol == 0) {
+                            pol = "Muski"
+                        }
+                        else {
+                            pol = "Zenski"
+                        }
+
+
+                        if (data[element].Uloga == 0) {
+                            uloga = "Posetilac";
+                        }
+                        else if (data[element].Uloga == 1) {
+                            uloga = "Trener";
+                        }
+                        else {
+                            uloga = "Vlasnik";
+                        }
+
+
+
+
+
+                        var prikaz = '<h1 style="color:red">Informacije o posetiocima: </h1>'
+
+
+
+                        prikaz += data[element].Ime + '<br/> '
+
+
+                        prikaz += data[element].Prezime + '</br>'
+
+
+
+                        prikaz += '<br/><label>Email:</label>' + data[element].Email
+
+
+                        prikaz += '</br>'
+                      
+                    }
+                   
+                    $('#content').html(prikaz);
+
+                }
+
+
+
+            });
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+
+    </script>
+</head>
+<body>
+    <div id="content"></div>
+    <br />
+    <button id="odustani">Nazad</button>
+</body>
+</html>

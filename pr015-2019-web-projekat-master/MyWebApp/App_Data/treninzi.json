@@ -1,0 +1,153 @@
+[
+  {
+    "Id": 355939447,
+    "Naziv": "Trening 1",
+    "Tip": "fut",
+    "Fitnes": {
+      "Id": 942760251,
+      "Naziv": "Fitnes centar 2",
+      "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+      "GodinaOtvaranja": 1999,
+      "KorisnickoImeVlasnika": "Anaa",
+      "CenaMesecneClanarine": 1200.0,
+      "CenaGodisnjeClanarine": 12000.0,
+      "CenaJednogTreninga": 500.0,
+      "CenaJednogGrupnogTreninga": 1200.0,
+      "CenaJednogTrSaPersTrenerom": 1500.0,
+      "Obrisan": false
+    },
+    "Trajanje": 45,
+    "DatumIVreme": "2022-07-09T22:27:00",
+    "MaxBrPosetilaca": 2,
+    "Posetioci": [
+      "Helena123",
+      "Marija"
+    ],
+    "Obrisan": false
+  },
+  {
+    "Id": 355939447,
+    "Naziv": "Trening 2",
+    "Tip": "neki",
+    "Fitnes": {
+      "Id": 942760251,
+      "Naziv": "Fitnes centar 2",
+      "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+      "GodinaOtvaranja": 1999,
+      "KorisnickoImeVlasnika": "Anaa",
+      "CenaMesecneClanarine": 1200.0,
+      "CenaGodisnjeClanarine": 12000.0,
+      "CenaJednogTreninga": 500.0,
+      "CenaJednogGrupnogTreninga": 1200.0,
+      "CenaJednogTrSaPersTrenerom": 1500.0,
+      "Obrisan": false
+    },
+    "Trajanje": 45,
+    "DatumIVreme": "2022-04-09T22:27:00",
+    "MaxBrPosetilaca": 2,
+    "Posetioci": [
+      "Helena123",
+      "Marija"
+    ],
+    "Obrisan": false
+  },
+  {
+    "Id": 483018793,
+    "Naziv": "Trening 2",
+    "Tip": "jedan",
+    "Fitnes": {
+      "Id": 398413477,
+      "Naziv": "Fitnes centar 3",
+      "AdresaFitnesCentra": "GornjaLjub 66, Ljubovija, 15320",
+      "GodinaOtvaranja": 2015,
+      "KorisnickoImeVlasnika": "Jovan111",
+      "CenaMesecneClanarine": 1000.0,
+      "CenaGodisnjeClanarine": 10000.0,
+      "CenaJednogTreninga": 400.0,
+      "CenaJednogGrupnogTreninga": 500.0,
+      "CenaJednogTrSaPersTrenerom": 1000.0,
+      "Obrisan": false
+    },
+    "Trajanje": 44,
+    "DatumIVreme": "2022-07-15T22:44:00",
+    "MaxBrPosetilaca": 10,
+    "Posetioci": [
+      "Marija"
+    ],
+    "Obrisan": false
+  },
+  {
+    "Id": 761820052,
+    "Naziv": "Trening 3",
+    "Tip": "tip2",
+    "Fitnes": {
+      "Id": 398413477,
+      "Naziv": "Fitnes centar 3",
+      "AdresaFitnesCentra": "GornjaLjub 66, Ljubovija, 15320",
+      "GodinaOtvaranja": 2015,
+      "KorisnickoImeVlasnika": "Jovan111",
+      "CenaMesecneClanarine": 1000.0,
+      "CenaGodisnjeClanarine": 10000.0,
+      "CenaJednogTreninga": 400.0,
+      "CenaJednogGrupnogTreninga": 500.0,
+      "CenaJednogTrSaPersTrenerom": 1000.0,
+      "Obrisan": false
+    },
+    "Trajanje": 47,
+    "DatumIVreme": "2022-07-30T22:44:00",
+    "MaxBrPosetilaca": 6,
+    "Posetioci": [
+      "Marija"
+    ],
+    "Obrisan": false
+  },
+  {
+    "Id": 333333,
+    "Naziv": "Trening 9",
+    "Tip": "kardio",
+    "Fitnes": {
+      "Id": 942760251,
+      "Naziv": "Fitnes centar 2",
+      "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+      "GodinaOtvaranja": 1999,
+      "KorisnickoImeVlasnika": "Anaa",
+      "CenaMesecneClanarine": 1200.0,
+      "CenaGodisnjeClanarine": 12000.0,
+      "CenaJednogTreninga": 500.0,
+      "CenaJednogGrupnogTreninga": 1200.0,
+      "CenaJednogTrSaPersTrenerom": 1500.0,
+      "Obrisan": false
+    },
+    "Trajanje": 45,
+    "DatumIVreme": "2022-05-09T22:27:00",
+    "MaxBrPosetilaca": 2,
+    "Posetioci": [],
+    "Obrisan": false
+  },
+  {
+    "Id": 355939447,
+    "Naziv": "Trening 6",
+    "Tip": "neki1",
+    "Fitnes": {
+      "Id": 942760251,
+      "Naziv": "Fitnes centar 5",
+      "AdresaFitnesCentra": "Srebrenica 12, Bratunac, 13242",
+      "GodinaOtvaranja": 1999,
+      "KorisnickoImeVlasnika": "Anaa",
+      "CenaMesecneClanarine": 1200.0,
+      "CenaGodisnjeClanarine": 12000.0,
+      "CenaJednogTreninga": 500.0,
+      "CenaJednogGrupnogTreninga": 1200.0,
+      "CenaJednogTrSaPersTrenerom": 1500.0,
+      "Obrisan": false
+    },
+    "Trajanje": 45,
+    "DatumIVreme": "2022-04-10T22:27:00",
+    "MaxBrPosetilaca": 2,
+    "Posetioci": [
+      "Helena123",
+      "Marija"
+    ],
+    "Obrisan": false
+  }
+]

@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            background-color: antiquewhite
+        }
+
+        button {
+            border-radius: 12px;
+            padding: 5px 20px;
+        }
+
+        input.inp {
+            border-bottom-color: red
+        }
+    </style>
+
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            njegoviFitnes();
+
+            $('#odustani').click(function () {
+                window.location.href = "index.html";
+            });
+
+
+
+
+
+
+            $('#formaId').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+
+
+                let naziv = $('#naziv').val();
+
+                let adresa = $('#adresa').val();
+                let godina = $('#godina').val();
+                let cenaMes = $('#cenaMes').val();
+
+                let cenaGod = $('#cenaGod').val();
+                let cenaJednog = $('#cenaJednog').val();
+                let cenaJedGr = $('#cenaJedGr').val();
+                let cenaJedGrSaTr = $('#cenaJedGrSaTr').val();
+
+
+                if (naziv.length == 0 || adresa.length == 0 || cenaMes.length == 0 || godina.length == 0 || cenaJednog.length == 0 || cenaGod.length == 0 || cenaJedGr.length == 0 || cenaJedGrSaTr.length == 0 || cenaMes == null || godina == null || cenaJednog == null || cenaGod == null || cenaJedGr == null || cenaJedGrSaTr == null) {
+                    alert("Niste popunili sva polja!");
+                    return
+                }
+               
+                
+
+
+                $.ajax({
+                    url: "/api/korisnik/DodavanjeFitnesCentra",
+                    type: "POST",
+                    data: form.serialize(),
+                    success: function (response) {
+
+                        alert('Uspesno ste dodali fitnes centar');
+                        window.location.href = "novifc.html";
+
+                    }
+
+
+
+                });
+
+
+
+            });
+
+
+            $('#formaId1').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+
+                $.ajax({
+                    url: "/api/korisnik/BlokiranjeTrenera",
+                    type: "POST",
+                    data: form.serialize(),
+                    success: function (response) {
+
+                        alert('Uspesno ste blokirali trenera');
+                        window.location.href = "novifc.html";
+
+                    }
+                    //validacije sta ako nije dobrog korisnika uneo ili ako ga je vec blokirao npr
+
+
+                });
+
+
+
+            });
+
+
+
+
+            $(document).on('click', '.izmeni', function (e) {
+
+                e.preventDefault();
+                let id = $(this).attr('name');
+
+
+                $.ajax({
+                    url: "/api/korisnik/PrikazFitnesCentra",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+                        window.location.href = "izmeniFitnes.html";
+
+                    }
+
+                });
+
+
+            });
+
+            $(document).on('click', '.obrisi', function (e) {
+
+                e.preventDefault();
+                let id = $(this).attr('name');
+
+                $.ajax({
+                    url: "/api/korisnik/BrisanjeFitnesCentra",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+
+                        alert(response)
+
+                        window.location.href = "novifc.html";
+
+                    }
+                });
+
+
+
+
+
+
+            });
+
+
+            $(document).on('click', '.dodaj', function (e) {
+
+                e.preventDefault();
+                let id = $(this).attr('name');
+
+
+
+                $.ajax({
+                    url: "/api/korisnik/DodajUFitnes",
+                    type: "POST",
+                    data: { 'id': id },
+                    success: function (response) {
+
+
+
+                        window.location.href = "novitrener.html";
+
+                    }
+                });
+
+
+
+
+
+
+            });
+
+        });
+
+
+
+
+        function njegoviFitnes() {
+
+
+
+
+            $.ajax({
+                url: "/api/korisnik/FitnesCentriVlasnika",
+                type: 'GET',
+                success: function (data) {
+
+                    for (element in data) {
+                        let tableOfFitnes = '<h1>Fitnes centri: </h1>'
+                        tableOfFitnes += '<table border="1">';
+                        tableOfFitnes += '<tr><th>Naziv</th><th>Adresa</th><th>Godina otvaranja</th><th> </th><th> </th><th> </th></tr>';
+                        for (element in data) {
+
+                            let product = '<td>' + data[element].Naziv + '</td>';
+                            product += '<td class="productClass">' + data[element].AdresaFitnesCentra + '</td>';
+                            product += '<td>' + data[element].GodinaOtvaranja + '</td>';
+
+                            product += '<td><button class="izmeni" name="' + data[element].Id + '">Izmeni</button></td>';
+                            product += '<td><button class="obrisi" name="' + data[element].Id + '">Obrisi</button></td>';
+                            product += '<td><button class="dodaj" name="' + data[element].Id + '">Dodaj trenera</button></td>';
+
+                            tableOfFitnes += '<tr>' + product + '</tr>';
+                        }
+                        tableOfFitnes += '</table>';
+                        $('#vlasnikovi').html(tableOfFitnes);
+
+                    }
+
+                }
+
+
+
+            });
+        }
+
+
+
+
+    </script>
+</head>
+<body>
+
+    <div id="vlasnikovi"></div>
+    <br />
+    <h2>Dodaj novi fitnes centar:</h2>
+    <form id="formaId">
+        <label for="naziv">Naziv:</label> <input type="text" id="naziv" name="naziv" /> <br />
+        <label for="adresa">Adresa:</label><input type="text" id="adresa" name="adresa" placeholder="ulica broj, mesto/grad, postanskiBroj" /> <br />
+        <label for="godina">Godina otvaranja:</label> <input type="number" id="godina" name="godina" /><br />
+        <label for="cenaMesClanarine">Cena mesecne clanarine:</label><input type="number" id="cenaMes" name="cenaMes" /> <br />
+        <label for="cenaGodClanarina">Cena godisnje clanarine:</label><input type="number" id="cenaGod" name="cenaGod" /> <br />
+        <label for="cenaJedTr">Cena jednog treninga:</label><input type="number" id="cenaJednog" name="cenaJednog" /> <br />
+        <label for="cenaJedGr">Cena jednog grupnog treninga:</label><input type="number" id="cenaJedGr" name="cenaJedGr" /> <br />
+        <label for="cenaJedGrSaTr">Cena jednog grupnog treninga sa personalnim trenerom:</label><input type="number" id="cenaJedGrSaTr" name="cenaJedGrSaTr" /> <br />
+
+
+
+
+        <input type="submit" value="Dodaj fitnes centar" id="trazi" />
+    </form>
+
+
+    <h3>Blokiraj trenera:</h3>
+
+
+
+
+    <form id="formaId1">
+        <label for="korimeTr">Unesite korisnicko ime :</label> <input type="text" id="korimrTr" name="korimrTr" /> <br />
+
+
+
+
+        <input type="submit" value="Blokiraj trenera" id="trazi" />
+    </form>
+    <br />
+    <button id="odustani">Nazad</button>
+
+</body>
+</html>
